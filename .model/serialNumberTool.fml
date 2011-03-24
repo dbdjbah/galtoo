@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="SamplePhp">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">SamplePhp</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services.samplephp</item>
+      <item name="Endpoint">http://localhost/snTool/bin-debug/gateway.php</item>
+      <item name="Destination">SamplePhp</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">bin-debug/services/SamplePhp.php</item>
+      <item name="PHP_SERVER_ROOT">C:\Program Files (x86)\Zend\Apache2\htdocs\snTool</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\Program Files (x86)\Zend\Apache2\htdocs\snTool\bin-debug\services</item>
+      <item name="PHP_LOCATION">C:/Program Files (x86)/Zend/Apache2/htdocs/snTool/bin-debug/services/SamplePhp.php</item>
+      <item name="LINKED_FILE">SamplePhp.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/snTool</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/snTool/bin-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">SamplePhp</item>
+    </annotation>
+    <function name="getAllItems" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getItem" arguments="itemID:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="createItem" arguments="item:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="updateItem" arguments="item:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="deleteItem" arguments="itemID:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="count" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getItems_paged" arguments="startIndex:opaque,numItems:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+  </service>
+  <service name="Sn">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">sn</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services.sn</item>
+      <item name="Endpoint">http://localhost/snTool/bin-debug/gateway.php</item>
+      <item name="Destination">sn</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">bin-debug/services/sn.php</item>
+      <item name="PHP_SERVER_ROOT">C:\Program Files (x86)\Zend\Apache2\htdocs\snTool</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\Program Files (x86)\Zend\Apache2\htdocs\snTool\bin-debug\services</item>
+      <item name="PHP_LOCATION">C:/Program Files (x86)/Zend/Apache2/htdocs/snTool/bin-debug/services/sn.php</item>
+      <item name="LINKED_FILE">sn.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/snTool</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/snTool/bin-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">sn</item>
+    </annotation>
+    <function name="checkSerialNumber" arguments="serialNumber:opaque" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="trackShopOrder" arguments="shopOrder:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="loadSerialNumber" arguments="serialNumber:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="get" arguments="value:opaque,col:opaque,get:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="set" arguments="field:opaque,value:opaque,col:opaque,egal:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque,opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="del" arguments="field:opaque,value:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="connexion_DB" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="select" arguments="where:opaque,order:opaque,order_type:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="fetchRow" arguments="where:opaque,order:opaque,order_type:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="fetchAll" arguments="where:opaque,order:opaque,order_type:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="insert" arguments="data:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="update" arguments="data:opaque,where:opaque,and_or:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="deleteIt" arguments="where:opaque,and_or:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="formatType" arguments="string:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="doneLoading" arguments="passed:opaque,serialNumber:opaque,moduleSlot:opaque,startedOn:opaque" return-type="opaque">
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque,opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+  </service>
+</model>
