@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="246" height="200" cornerRadius="10" borderStyle="solid" dataChange="handleDataChange()"
+		   creationComplete="handleCreationComplete()">
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			private var theName:String=new String();
+			[Bindable]
+			private var pic:String=new String();
+			
+			private function handleCreationComplete():void {
+				if (data != null && data.hasOwnProperty("name")) {
+					theName =data.name;
+					pic=data.nativePath;
+				}
+			}
+			private function handleDataChange():void {
+				if (data != null && data.hasOwnProperty("name")) {
+					if (theName) {
+						theName =data.name;
+						pic=data.nativePath;
+					}
+				} 
+			}
+
+			protected function clearSN(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+			}
+
+
+			protected function snChanged(event:Event):void
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+		]]>
+	</mx:Script>
+	
+	<mx:Panel layout="absolute" left="5" right="5" bottom="5" top="5" title="{theName}" horizontalAlign="center" fontWeight="normal" fontSize="6">
+		<mx:VBox left="0" right="0" verticalCenter="0"  horizontalAlign="center">
+			
+				<mx:HBox width="100%" horizontalGap="4" height="140">
+						<mx:Image  width="100%" source="{pic}" height="100%" verticalAlign="middle" horizontalAlign="center"/>
+				</mx:HBox>
+			
+		</mx:VBox>
+	</mx:Panel>
+</mx:Canvas>

@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<slots>
+<imi>
+    <slot id="1">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>1</port>
+        <path>c:</path>
+    </slot>
+    <slot id="2">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>2</port>
+        <path>c:</path>
+    </slot>
+    <slot id="3">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>3</port>
+        <path>c:</path>
+    </slot>
+    <slot id="4">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>4</port>
+        <path>c:</path>
+    </slot>
+    <slot id="5">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>5</port>
+        <path>c:</path>
+    </slot>
+    <slot id="6">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>6</port>
+        <path>c:</path>
+    </slot>
+    <slot id="7">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>7</port>
+        <path>c:</path>
+    </slot>
+    <slot id="8">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>8</port>
+        <path>c:</path>
+    </slot>
+    <slot id="9">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>1</port>
+        <path>c:</path>
+    </slot>
+    <slot id="10">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>2</port>
+        <path>c:</path>
+    </slot>
+    <slot id="11">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>3</port>
+        <path>c:</path>
+    </slot>
+    <slot id="12">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>4</port>
+        <path>c:</path>
+    </slot>
+    <slot id="13">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>5</port>
+        <path>c:</path>
+    </slot>
+    <slot id="14">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>6</port>
+        <path>c:</path>
+    </slot>
+    <slot id="15">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>7</port>
+        <path>c:</path>
+    </slot>
+    <slot id="16">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>2</module>
+        <port>8</port>
+        <path>c:</path>
+    </slot>
+  </imi> 
+  <nx> 
+      <slot id="1">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>5</port>
+        <path>c:</path>
+    </slot>
+          <slot id="2">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>10</port>
+        <path>c:</path>
+    </slot>
+          <slot id="3">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>15</port>
+        <path>c:</path>
+    </slot>
+          <slot id="4">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>20</port>
+        <path>c:</path>
+    </slot>
+          <slot id="5">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>4</port>
+        <path>c:</path>
+    </slot>
+          <slot id="6">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>9</port>
+        <path>c:</path>
+    </slot>
+          <slot id="7">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>14</port>
+        <path>c:</path>
+    </slot>
+          <slot id="8">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>19</port>
+        <path>c:</path>
+    </slot>
+          <slot id="9">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>3</port>
+        <path>c:</path>
+    </slot>
+          <slot id="10">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>8</port>
+        <path>c:</path>
+    </slot>
+          <slot id="11">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>13</port>
+        <path>c:</path>
+    </slot>
+          <slot id="12">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>18</port>
+        <path>c:</path>
+    </slot>
+          <slot id="13">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>2</port>
+        <path>c:</path>
+    </slot>
+          <slot id="14">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>7</port>
+        <path>c:</path>
+    </slot>
+          <slot id="15">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>12</port>
+        <path>c:</path>
+    </slot>
+          <slot id="16">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>17</port>
+        <path>c:</path>
+    </slot>
+          <slot id="17">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>1</port>
+        <path>c:</path>
+    </slot>
+          <slot id="18">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>6</port>
+        <path>c:</path>
+    </slot>
+          <slot id="19">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>11</port>
+        <path>c:</path>
+    </slot>
+          <slot id="20">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>16</port>
+        <path>c:</path>
+    </slot>
+  </nx>  
+</slots>

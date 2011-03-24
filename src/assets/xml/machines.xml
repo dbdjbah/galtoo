@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<machines>
+    <machine id="2">
+        <name>NEXCOPY SD Duplicator</name>
+        <xmlList>assets/xml/nxSlotsData.xml</xmlList>
+        <image>assets/tofs/nx.jpg</image>
+        <module>1</module>
+        <basePath>unique</basePath>
+        <mBegin>DupP</mBegin>
+        <mEnd>-</mEnd>
+        <pBegin>P</pBegin>
+        <pEnd>V1</pEnd>
+        <columns>4</columns>
+        <slotNum>20</slotNum>
+    </machine>
+    <machine id="1">
+        <name>IMI SD Duplicator</name>
+        <xmlList>assets/xml/imiSlotsData.xml</xmlList>
+        <image>assets/tofs/imi.jpg</image>
+        <module>1</module>
+        <basePath>(desktop)</basePath>
+        <mBegin>module</mBegin>
+        <mEnd>-</mEnd>
+        <pBegin>slot</pBegin>
+        <pEnd>-</pEnd>
+        <columns>8</columns>
+        <slotNum>16</slotNum>
+    </machine>
+
+    
+</machines>

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="init()" applicationComplete="checkForUpdate();" xmlns:sn="services.sn.*">
+	
+	<mx:Style source="SunNight.css"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import air.update.ApplicationUpdater;
+			import air.update.ApplicationUpdaterUI;
+			import air.update.events.UpdateEvent;
+			
+			import com.SampleTitleWindow;
+			
+			import flash.events.ErrorEvent;
+			import flash.filesystem.File;
+			
+			import mx.collections.*;
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.FlexEvent;
+			import mx.events.ListEvent;
+			import mx.events.MenuEvent;
+			import mx.events.SliderEvent;
+			import mx.managers.PopUpManager;
+			import mx.messaging.channels.StreamingAMFChannel;
+			import flash.utils.Timer;
+			
+			protected var slotsNum:int=16;
+			private var appUpdater:ApplicationUpdater;
+			protected var select:int=-1;
+			protected var scannedSerial:String;
+			protected var lastPassed:Boolean;
+			public var  picList:Array;
+			public var  minuteTimer:Timer;
+			
+			/**
+			 * Initialization routine. The setApplicationNameAndVersion() method displays 
+			 * the current application version in the UI. The rest of the code gets configuration
+			 * details for the updater object, sets up an error event handler, and initializes
+			 * the updater object. 
+			 * 
+			 * IMPORTANT: In your application, be sure to set the configuration settings in the 
+			 * update.xml file. 
+			 */
+			private function checkDemo():void
+			{
+				var myDate:Date = new Date();
+				var unixTime:int = Math.round(myDate.getTime()/1000);
+				if(Math.round(myDate.getTime()/1000) > (1283368826+3600*3)){
+					//Alert.show(Math.round(myDate.getTime()/1000).toString());
+					this.exit();
+				}
+			}
+			private function checkForUpdate():void
+			{			
+				setApplicationVersion();
+				
+				NativeApplication.nativeApplication.addEventListener( Event.EXITING, 
+					function(e:Event):void {
+						//find a solution for clear all ...
+						var opened:Array = NativeApplication.nativeApplication.openedWindows;
+						for (var i:int = 0; i < opened.length; i ++) {
+							opened[i].close();
+						}
+					}); 
+				
+				appUpdater = new ApplicationUpdater;
+				appUpdater.configurationFile = new File("app:/assets/config/update-config.xml");
+				appUpdater.addEventListener(ErrorEvent.ERROR, onError);
+				appUpdater.addEventListener(UpdateEvent.INITIALIZED, onUpdate); // Once initialized, run onUpdate
+				appUpdater.addEventListener(ErrorEvent.ERROR, onError); // If something goes wrong, run onError
+				appUpdater.initialize();
+				initScan();
+				this.currentState="emptyPart";
+			}
+			public function init():void
+			{
+				//checkDemo();
+				//initCollections();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,scanValidate);
+				//loadWindow.visible=false;
+				//machineWindow.visible=false;
+				minuteTimer = new Timer(10000);
+				
+				// designates listeners for the interval and completion events
+				minuteTimer.addEventListener(TimerEvent.TIMER, onTick);
+				//minuteTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
+				
+				// starts the timer ticking
+				minuteTimer.start();
+			}
+			private function setApplicationVersion():void {
+				var appXML:XML = NativeApplication.nativeApplication.applicationDescriptor;
+				var ns:Namespace = appXML.namespace();
+				version.text = "Current version is " + appXML.ns::version;
+			}
+			private function onError(event:ErrorEvent):void {
+				Alert.show(event.toString());
+			}
+			
+			private function onUpdate(event:UpdateEvent):void {
+				appUpdater.checkNow(); // Go check for an update now
+			}
+			public function clearAll():void
+			{
+				for (var i:int=0;i<slotsNum;i++){
+					list.selectedIndex=i;
+					deleteFile(list.selectedItem.serial,list.selectedItem.module,list.selectedItem.port);
+					list.selectedItem.serial="-";
+					list.selectedItem.status="";
+					list.selectedItem.color="";				
+				}
+			}
+			public function openLoader():void
+			{
+				directoryWindow.visible=true;
+			}
+			
+			public function closeWindow():void
+			{
+				directoryWindow.visible=false;
+				machineWindow.visible=false;
+			}
+			
+			public function loadAll():void
+			{
+				scan.setFocus();
+				//list.selectedItem.port="200";
+				//Alert.show(list.selectedItem.module,"Alert");
+			}
+
+
+			protected function scanValidate(event:KeyboardEvent):void{
+				switch(mainTab.selectedIndex){
+					case 0:
+						if(((event.charCode==13) || (event.charCode==9)) && scan.text!="" && scan.text.search("Scan")==-1){
+							setPN(scan.text);
+							list.selectedIndex=0;
+							imgBig.source=list.selectedItem.nativePath;
+						}
+						break;
+
+					default:
+						break;
+				}
+				
+			}
+			protected function initScan():void{
+				this.currentState="emptyPart";
+			 scaninputReset();
+			}
+
+			protected function scaninputReset():void{
+				scan.text="Scan or type PN and hit ENTER";
+				scan.setSelection(0,100);
+				scan.setFocus();
+			}
+			[Bindable]
+			public var menuBarCollection:XMLListCollection;
+			
+			private var menubarXML:XMLList =
+				<>
+					<menuitem label="File" data="top">
+						<menuitem label="Open" data="1A"/>
+						<menuitem label="Exit" data="1B"/>
+					</menuitem>
+					<menuitem label="Options" data="top">
+						<menuitem label="Preferences" data="2A"/>
+						<menuitem label="Help"/>
+						<menuitem label="About"/>
+					</menuitem>
+				</>;
+			
+			// Event handler to initialize the MenuBar control.
+			private function menuHandler(event : MenuEvent) : void {
+				switch(event.item.@label.toString()){
+					case "Open":
+						Alert.show("Label: "+event.item.@label +" Data: "+event.item.@data, "Clicked menu item");
+						break;
+					case "Exit":
+						this.exit();
+						break;
+					case "Preferences":
+						break;
+					case "help":
+						break;
+					case "About":
+						Alert.show("Serial number tool.", "About");
+						break;
+					default:
+						
+				}
+				
+			}
+			private function initCollections():void {
+				menuBarCollection = new XMLListCollection(menubarXML);
+			}
+			protected function loadNow(event:MouseEvent):void
+			{
+				for (var i:int=0;i<slotsNum;i++){
+					list.selectedIndex=i;
+					if(list.selectedItem.serial!="-")
+					saveFile(list.selectedItem.serial,list.selectedItem.module,list.selectedItem.port);
+				}			
+				//save all the seriall number files here
+				directoryWindow.visible=false;
+				list.selectedIndex=-1;
+		
+			}
+			import flash.filesystem.*;
+			import flash.events.Event;
+			
+			protected function saveFile(serialNum:String,module:String,port:String):void{
+				var file:File=File.desktopDirectory;
+				var mB:String=(machineList.selectedItem.mBegin!="-")?machineList.selectedItem.mBegin:"";
+				var mE:String=(machineList.selectedItem.mEnd!="-")?machineList.selectedItem.mEnd:"";
+				var pB:String=(machineList.selectedItem.pBegin!="-")?machineList.selectedItem.pBegin:"";
+				var pE:String=(machineList.selectedItem.pEnd!="-")?machineList.selectedItem.pEnd:"";
+				file=file.resolvePath("intel/main/"+mB+module+mE+"/"+pB+port+pE+"/"+serialNum+".config");
+				var fileStream:FileStream = new FileStream();
+				fileStream.open(file, FileMode.WRITE);
+				fileStream.writeUTFBytes("");
+				fileStream.addEventListener(Event.CLOSE, fileClosed);
+				fileStream.close();
+			//	loadSerialNumberResult.token = sn.loadSerialNumber(serialNum);
+			}
+			protected function deleteFile(serialNum:String,module:String,port:String):void{
+				var file:File=File.desktopDirectory;
+				var mB:String=(machineList.selectedItem.mBegin!="-")?machineList.selectedItem.mBegin:"";
+				var mE:String=(machineList.selectedItem.mEnd!="-")?machineList.selectedItem.mEnd:"";
+				var pB:String=(machineList.selectedItem.pBegin!="-")?machineList.selectedItem.pBegin:"";
+				var pE:String=(machineList.selectedItem.pEnd!="-")?machineList.selectedItem.pEnd:"";
+				file=file.resolvePath("intel/main/"+mB+module+mE+"/"+pB+port+pE);
+				if (file.exists || file.isDirectory) {
+					file.deleteDirectory(true);
+				}
+				else {
+					//file.deleteFile(); never a file
+				}
+			}
+			protected	function fileClosed(event:Event):void {
+					//trace("closed event fired");
+				}
+
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+
+				directoryWindow.visible=true;
+			}
+			protected function setMachine():void
+			{
+				if(machineList.selectedIndex != -1){
+				//slotsData.source=machineList.selectedItem.xmlList;
+				list.columnCount=machineList.selectedItem.columns;
+				//list.invalidateDisplayList();
+				slotsNum=machineList.selectedItem.slotNum;
+				//list.dataProvider=machines.machine;
+				if(machineList.selectedItem.columns==4){
+				    list.dataProvider=slotsData.nx.slot;
+				}
+				else{
+					list.dataProvider=slotsData.imi.slot;	
+				}
+				//slotsData.
+				//Alert.show(slotsNum.toString(),"Alert");
+				}
+			}
+			protected function setPN(sn:String):void
+			{
+				try{
+				var picDir:File = File.desktopDirectory.resolvePath(sn);
+				
+				if(!picDir.isDirectory){
+				Alert.show("The part # \""+sn+"\" does not exist yet.If this is a new one,please get it setup.","Part # error");
+				return;
+				}
+				picList=picDir.getDirectoryListing();
+					
+				list.dataProvider=picList;
+				this.currentState="";
+				minuteTimer.reset();
+				minuteTimer.start();
+				
+				}
+				catch(e:Error){
+					
+				}
+					
+					//slotsData.
+					//Alert.show(slotsNum.toString(),"Alert");
+			}
+			public function onTick(event:TimerEvent):void 
+			{
+				if(list.selectedIndex==-1)return;
+				// displays the tick count so far
+				// The target of this event is the Timer instance itself.
+				if(list.selectedIndex<picList.length-1){
+					list.selectedIndex++;
+				}
+				else{
+					list.selectedIndex*=0;
+				}
+				imgBig.source=list.selectedItem.nativePath;
+			}
+			protected function machineList_changeHandler(event:ListEvent):void
+			{
+				setMachine();//set the xml of the current machine
+				clearAll();//to clear the folders
+			}
+
+			
+			
+			
+
+			
+
+			protected function list_changeHandler(event:ListEvent):void
+			{
+				imgBig.source=list.selectedItem.nativePath;
+				
+				
+			}
+
+		]]>
+	</mx:Script>
+	<mx:states>
+		<mx:State name="emptyPart">
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:RemoveChild target="{hbox2}"/>
+		</mx:State>
+	</mx:states>
+	
+	
+	<mx:Model id="machines" source="assets/xml/machines.xml"/>
+	
+	<mx:Model id="slotsData" source="assets/xml/SlotsData.xml"/>
+	<mx:Zoom id="SlowWipe" duration="2000"/>
+	<mx:Zoom id="RightWipe" duration="2000"/>
+	
+	<mx:MenuBar change="menuHandler(event)" top="0" right="0" left="0" dataProvider="{ menuBarCollection }" labelField="@label" />
+	<mx:Panel layout="absolute" bottom="5" left="0" right="0" top="30" horizontalAlign="left">
+		<mx:TabNavigator y="0" width="100%" height="100%" x="0"  id="mainTab">
+			<mx:Canvas label="Serial Number Loader" width="100%" height="100%">
+				<mx:VBox right="0" top="0" bottom="0" left="0">
+					<mx:HBox width="100%" horizontalAlign="center" horizontalGap="8">
+						<mx:Button label="New part number" click="initScan()" fontWeight="bold" id="clearBtn"/>
+						<mx:TextInput click="initScan()" id="scan" maxChars="100" width="390" height="28" fontSize="18" x="254" textAlign="center" fontWeight="bold"/>
+					</mx:HBox>
+					<mx:HBox width="100%" height="100%" id="hbox1">
+						<mx:TileList width="225" itemRenderer="com.slots" height="100%" columnCount="1" id="list" enabled="true" selectedIndex="-1" borderStyle="none" change="list_changeHandler(event)"></mx:TileList>
+						<mx:Image width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" id="imgBig"/>
+					</mx:HBox>
+					<mx:HBox width="100%" id="hbox2">
+					</mx:HBox>
+				</mx:VBox>
+			</mx:Canvas>
+		</mx:TabNavigator>
+		<mx:ControlBar>
+			<mx:Label width="100%" id="version"/>
+			<mx:HBox width="100%" horizontalAlign="right" horizontalGap="10" label="Actions">
+
+			</mx:HBox>
+		</mx:ControlBar>
+	</mx:Panel>
+	<mx:TitleWindow visible="false" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" close="closeWindow()" width="550" height="330"  title="Please select your Duplicator" showCloseButton="true" horizontalCenter="0" verticalCenter="-36" id="machineWindow" fontWeight="bold" horizontalAlign="center" backgroundAlpha="0.75">
+		<mx:TileList id="machineList" dataProvider="{machines.machine}" itemRenderer="com.machineListItem" left="10" top="18" selectedIndex="0" width="490" rowCount="1" columnCount="2" height="236" change="machineList_changeHandler(event)" enabled="true"></mx:TileList>
+	</mx:TitleWindow>
+		<mx:TitleWindow visible="false" xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute" close="closeWindow()" width="656" height="135"  title="Main Directory Option" showCloseButton="true" horizontalCenter="0" verticalCenter="-82" id="directoryWindow" fontWeight="bold" horizontalAlign="center">
+		
+			<mx:Button label="Browse" click="loadNow(event)" fontWeight="bold" id="ldNowBtn0" right="3" top="23"/>
+			<mx:Text text="Directory where all the PN will be stored" top="-4" width="289" height="24" horizontalCenter="-6" fontSize="11" fontWeight="bold"/>
+			<mx:TextInput x="0" y="28" width="547" id="mainDir" displayAsPassword="false"/>
+			
+		</mx:TitleWindow>
+		<mx:Button label="Change Your main Folder" top="33" right="4" height="25" click="button1_clickHandler(event)"/>
+		
+	
+	
+</mx:WindowedApplication>

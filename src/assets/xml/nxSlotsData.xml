@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<slots>
+    <slot id="1">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>1</port>
+        <path>c:</path>
+    </slot>
+    <slot id="2">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>2</port>
+        <path>c:</path>
+    </slot>
+    <slot id="3">
+        <serial>-</serial>
+        <color></color>
+        <status></status>
+        <module>1</module>
+        <port>3</port>
+        <path>c:</path>
+    </slot>
+</slots>
